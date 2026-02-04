@@ -4,6 +4,7 @@ import json
 import os
 import sys
 import datetime
+import re
 
 # 配置
 REPO_OWNER = "lbjlaq"
@@ -19,6 +20,53 @@ def get_headers():
     if GITHUB_TOKEN:
         headers["Authorization"] = f"token {GITHUB_TOKEN}"
     return headers
+
+def normalize_text(text):
+    """
+    清洗文本，修复 Unicode 转义 (\\uXXXX) 和字面量换行 (\\n)
+    确保 Markdown 能被正确解析
+    """
+    if not text:
+        return ""
+    
+    # 1. 修复可能存在的字面量换行符 (Common in JSON dumps)
+    text = text.replace('\\r\\n', '\n').replace('\\n', '\n')
+    
+    # 2. 修复 Unicode 转义 (e.g. \\u6838\\u5fc3 -> 核心)
+    # 这种情况通常发生在之前的步骤错误地使用了 json.dumps(ensure_ascii=True)
+    if '\\u' in text:
+        try:
+            # 只有当包含 \u 时才尝试解码
+            # 使用 unicode_escape 需要先编码为 latin-1 (针对纯转义串) 或 utf-8
+            # 为了安全，我们只在匹配到 unicode 模式时处理，或者尝试整体解码
+            # 简单策略：如果看起来像是一堆转义符，尝试 decode
+            # 注意：如果混合了正常中文和转义符，直接 decode('unicode_escape') 可能会破坏正常中文
+            # 所以这里我们使用正则精确替换
+            def replace_unicode(match):
+                return match.group(0).encode('utf-8').decode('unicode_escape')
+            
+            # 匹配连续的 unicode 转义序列，例如 \u6838\u5fc3
+            text = re.sub(r'(\\u[0-9a-fA-F]{4})+', replace_unicode, text)
+        except Exception as e:
+            # 如果转换失败，保留原样
+            print(f"Warning: Failed to unescape text: {e}", file=sys.stderr)
+            pass
+            
+    return text
+
+def format_time_v8(iso_str):
+    """Converting UTC ISO time string to Beijing Time (UTC+8)"""
+    if not iso_str:
+        return "Unknown"
+    try:
+        if iso_str.endswith('Z'):
+             dt = datetime.datetime.strptime(iso_str, "%Y-%m-%dT%H:%M:%SZ")
+        else:
+             dt = datetime.datetime.fromisoformat(iso_str)
+        dt_v8 = dt + datetime.timedelta(hours=8)
+        return dt_v8.strftime("%Y-%m-%d %H:%M:%S")
+    except Exception as e:
+        return iso_str
 
 def 获取所有版本():
     """获取所有 Release 信息"""
@@ -95,26 +143,6 @@ def 加载历史记录():
 def 保存历史记录(history):
     with open("history.json", "w", encoding="utf-8") as f:
         json.dump(history, f, indent=4, ensure_ascii=False)
-
-def format_time_v8(iso_str):
-    """Converting UTC ISO time string to Beijing Time (UTC+8)"""
-    if not iso_str:
-        return "Unknown"
-    try:
-        # GitHub API returns time like "2026-01-30T01:53:36Z"
-        # strptime is safer for older Python versions than fromisoformat
-        if iso_str.endswith('Z'):
-             dt = datetime.datetime.strptime(iso_str, "%Y-%m-%dT%H:%M:%SZ")
-        else:
-             # Fallback if no Z or other format (e.g. from local override?)
-             dt = datetime.datetime.fromisoformat(iso_str)
-        
-        # Add 8 hours
-        dt_v8 = dt + datetime.timedelta(hours=8)
-        return dt_v8.strftime("%Y-%m-%d %H:%M:%S")
-    except Exception as e:
-        # Return original if parsing fails
-        return iso_str
 
 def 生成README(history):
     # 按照发布时间倒序
@@ -212,10 +240,13 @@ def main():
                         f.write(f"published_at={pub_at}\n")
                         f.write(f"html_url={target_release['html_url']}\n")
                         
+                        # 清洗并写入 Body
+                        body_content = normalize_text(target_release.get('body', 'No description'))
+                        
                         # 使用 EOF 分隔符处理多行 body，避免 URL 编码问题
                         delimiter = f"EOF_{os.urandom(6).hex()}"
                         f.write(f"body<<{delimiter}\n")
-                        f.write(target_release.get('body', 'No description'))
+                        f.write(body_content)
                         f.write(f"\n{delimiter}\n")
                         
                         # 使用 EOF 分隔符输出多行内容，确保 gh-release 能正确识别文件列表
@@ -271,10 +302,13 @@ def main():
             f.write(f"version_changed={'true' if version_changed else 'false'}\n")
             f.write(f"version={tag_name}\n")
             
+            # 清洗并写入 Body
+            body_content = normalize_text(latest_release.get('body', 'No description'))
+            
             # 使用 EOF 分隔符处理 Body
             delimiter = f"EOF_{os.urandom(6).hex()}"
             f.write(f"body<<{delimiter}\n")
-            f.write(latest_release.get('body', 'No description'))
+            f.write(body_content)
             f.write(f"\n{delimiter}\n")
             
             if version_changed:
