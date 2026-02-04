@@ -30,8 +30,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           VERSION_JSON=$(python check_version.py --api-history)
-          # 防止 JSON 过大导致 set-output 失败 (Github 限制 ~1MB?)
-          # 如果太大，可能需要分批处理，但目前先这样
           echo "matrix=$VERSION_JSON" >> $GITHUB_OUTPUT
 
   backup_releases:
@@ -41,7 +39,7 @@ jobs:
     permissions:
       contents: write
     strategy:
-      max-parallel: 1 # 串行防止 API 滥用或冲突
+      max-parallel: 1
       fail-fast: false
       matrix:
         item: ${{ fromJson(needs.fetch_versions.outputs.matrix) }}
@@ -65,7 +63,7 @@ jobs:
         run: |
           gh release view "$TAG" > /dev/null 2>&1 && echo "exists=true" >> $GITHUB_OUTPUT || echo "exists=false" >> $GITHUB_OUTPUT
 
-      - name: 下载资源
+      - name: 检查并下载资源
         if: steps.check_release.outputs.exists == 'false'
         id: download
         run: python check_version.py --download ${{ matrix.item.version }}
@@ -81,10 +79,10 @@ jobs:
           body: |
             历史版本存档
             
-            原始页面: ${{ matrix.item.html_url }}
-            发布时间: ${{ matrix.item.published_at }}
+            原始页面: ${{ steps.download.outputs.html_url }}
+            发布时间: ${{ steps.download.outputs.published_at }}
             
-            ${{ matrix.item.body }}
+            ${{ steps.download.outputs.body }}
           files: |
             ${{ steps.download.outputs.assets }}
         env:
