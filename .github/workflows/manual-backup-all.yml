@@ -1,0 +1,91 @@
+name: 手动一键备份所有历史版本
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch_versions:
+    name: 获取版本列表
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.get-versions.outputs.matrix }}
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Python 环境
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: 安装依赖
+        run: pip install requests
+
+      - name: 获取所有历史版本
+        id: get-versions
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION_JSON=$(python check_version.py --api-history)
+          # 防止 JSON 过大导致 set-output 失败 (Github 限制 ~1MB?)
+          # 如果太大，可能需要分批处理，但目前先这样
+          echo "matrix=$VERSION_JSON" >> $GITHUB_OUTPUT
+
+  backup_releases:
+    name: 备份发布
+    needs: fetch_versions
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    strategy:
+      max-parallel: 1 # 串行防止 API 滥用或冲突
+      fail-fast: false
+      matrix:
+        item: ${{ fromJson(needs.fetch_versions.outputs.matrix) }}
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Python 环境
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: 安装依赖
+        run: pip install requests
+
+      - name: 检查 Release 是否已存在
+        id: check_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ matrix.item.version }}
+        run: |
+          gh release view "$TAG" > /dev/null 2>&1 && echo "exists=true" >> $GITHUB_OUTPUT || echo "exists=false" >> $GITHUB_OUTPUT
+
+      - name: 下载资源
+        if: steps.check_release.outputs.exists == 'false'
+        id: download
+        run: python check_version.py --download ${{ matrix.item.version }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 创建 Release
+        if: steps.check_release.outputs.exists == 'false'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ matrix.item.version }}
+          name: Antigravity Manager ${{ matrix.item.version }}
+          body: |
+            历史版本存档
+            
+            原始页面: ${{ matrix.item.html_url }}
+            发布时间: ${{ matrix.item.published_at }}
+            
+            ${{ matrix.item.body }}
+          files: |
+            ${{ steps.download.outputs.assets }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
