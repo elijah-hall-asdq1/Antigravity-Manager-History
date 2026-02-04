@@ -153,6 +153,11 @@ def main():
         if sys.argv[1] == "--api-history":
             # 返回精简版本列表供 Matrix 使用 (避免 JSON 过大)
             releases = 获取所有版本()
+            
+            # 按照发布时间升序排列 (从小到大 / 旧到新)
+            # 这样备份工作流会按照历史顺序依次创建 Release
+            releases.sort(key=lambda x: x.get("published_at", ""))
+            
             output = []
             for r in releases:
                 output.append({
@@ -176,12 +181,15 @@ def main():
                 # 写入 step output 供后续步骤使用
                 if "GITHUB_OUTPUT" in os.environ:
                     with open(os.environ["GITHUB_OUTPUT"], "a") as f:
-                        f.write(f"assets={' '.join(file_list)}\n")
                         # 转义 body 中的换行符，防止破坏 GitHub Output 格式
                         body_escaped = target_release['body'].replace('%', '%25').replace('\n', '%0A').replace('\r', '%0D')
                         f.write(f"body={body_escaped}\n")
                         f.write(f"published_at={target_release['published_at']}\n")
                         f.write(f"html_url={target_release['html_url']}\n")
+                        # 使用 EOF 分隔符输出多行内容，确保 gh-release 能正确识别文件列表
+                        f.write("assets<<EOF\n")
+                        f.write('\n'.join(file_list))
+                        f.write("\nEOF\n")
             else:
                 print(f"未找到版本 {version_tag}")
                 sys.exit(1)
@@ -230,12 +238,17 @@ def main():
         with open(os.environ["GITHUB_OUTPUT"], "a") as f:
             f.write(f"version_changed={'true' if version_changed else 'false'}\n")
             f.write(f"version={tag_name}\n")
-            f.write(f"body={json.dumps(latest_release['body'])}\n") # 防止多行问题，虽然json.dumps会转义
+            # 转义 body
+            body_escaped = json.dumps(latest_release['body']).strip('"').replace('\\n', '%0A').replace('\\r', '%0D')
+            f.write(f"body={body_escaped}\n")
             
             if version_changed:
                 print("版本更新，开始下载资源...")
                 file_list = 下载资源(latest_release["assets"])
-                f.write(f"assets={' '.join(file_list)}\n")
+                
+                f.write("assets<<EOF\n")
+                f.write('\n'.join(file_list))
+                f.write("\nEOF\n")
                 
                 # 更新本地 VERSION 文件
                 with open("VERSION", "w", encoding="utf-8") as vf:
