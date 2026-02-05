@@ -4,12 +4,13 @@
 > 本仓库自动监控并备份 [lbjlaq/Antigravity-Manager](https://github.com/lbjlaq/Antigravity-Manager) 的 Release 版本。
 > 每小时同步一次。
 
-## 🌟 最新版本: `v4.1.4`
-**更新时间**: `2026-02-05 22:34:00`
+## 🌟 最新版本: `v4.1.5`
+**更新时间**: `2026-02-06 03:11:59`
 
 ## 📜 历史版本存档
 | 版本 | 发布时间 | 资源文件 | 原始链接 |
 | :--- | :--- | :--- | :--- |
+| `v4.1.5` | 2026-02-06 03:11:59 | `Antigravity.Tools-4.1.5-1.aarch64.rpm`<br>`Antigravity.Tools-4.1.5-1.aarch64.rpm.sig`<br>`Antigravity.Tools-4.1.5-1.x86_64.rpm`<br>`Antigravity.Tools-4.1.5-1.x86_64.rpm.sig`<br>`Antigravity.Tools.app.tar.gz`<br>`Antigravity.Tools.app.tar.gz.sig`<br>`Antigravity.Tools_4.1.5_aarch64.AppImage`<br>`Antigravity.Tools_4.1.5_aarch64.AppImage.sig`<br>`Antigravity.Tools_4.1.5_aarch64.dmg`<br>`Antigravity.Tools_4.1.5_amd64.AppImage`<br>`Antigravity.Tools_4.1.5_amd64.AppImage.sig`<br>`Antigravity.Tools_4.1.5_amd64.deb`<br>`Antigravity.Tools_4.1.5_amd64.deb.sig`<br>`Antigravity.Tools_4.1.5_arm64.deb`<br>`Antigravity.Tools_4.1.5_arm64.deb.sig`<br>`Antigravity.Tools_4.1.5_universal.dmg`<br>`Antigravity.Tools_4.1.5_x64-setup.exe`<br>`Antigravity.Tools_4.1.5_x64-setup.exe.sig`<br>`Antigravity.Tools_4.1.5_x64.dmg`<br>`Antigravity.Tools_4.1.5_x64_en-US.msi`<br>`Antigravity.Tools_4.1.5_x64_en-US.msi.sig`<br> | [Source](https://github.com/lbjlaq/Antigravity-Manager/releases/tag/v4.1.5) |
 | `v4.1.4` | 2026-02-05 22:34:00 | `Antigravity.Tools-4.1.4-1.aarch64.rpm`<br>`Antigravity.Tools-4.1.4-1.x86_64.rpm`<br>`Antigravity.Tools_4.1.4_aarch64.AppImage`<br>`Antigravity.Tools_4.1.4_amd64.AppImage`<br>`Antigravity.Tools_4.1.4_amd64.deb`<br>`Antigravity.Tools_4.1.4_arm64.deb`<br> | [Source](https://github.com/lbjlaq/Antigravity-Manager/releases/tag/v4.1.4) |
 | `v4.1.3` | 2026-02-05 14:59:20 | `Antigravity.Tools-4.1.3-1.aarch64.rpm`<br>`Antigravity.Tools-4.1.3-1.x86_64.rpm`<br>`Antigravity.Tools_4.1.3_aarch64.AppImage`<br>`Antigravity.Tools_4.1.3_aarch64.dmg`<br>`Antigravity.Tools_4.1.3_amd64.AppImage`<br>`Antigravity.Tools_4.1.3_amd64.deb`<br>`Antigravity.Tools_4.1.3_arm64.deb`<br>`Antigravity.Tools_4.1.3_universal.dmg`<br>`Antigravity.Tools_4.1.3_x64-setup.exe`<br>`Antigravity.Tools_4.1.3_x64.dmg`<br>`Antigravity.Tools_4.1.3_x64_en-US.msi`<br>`updater.json`<br> | [Source](https://github.com/lbjlaq/Antigravity-Manager/releases/tag/v4.1.3) |
 | `v4.1.2` | 2026-02-05 11:43:09 | `Antigravity.Tools-4.1.2-1.aarch64.rpm`<br>`Antigravity.Tools-4.1.2-1.x86_64.rpm`<br>`Antigravity.Tools_4.1.2_aarch64.AppImage`<br>`Antigravity.Tools_4.1.2_aarch64.dmg`<br>`Antigravity.Tools_4.1.2_amd64.AppImage`<br>`Antigravity.Tools_4.1.2_amd64.deb`<br>`Antigravity.Tools_4.1.2_arm64.deb`<br>`Antigravity.Tools_4.1.2_universal.dmg`<br>`Antigravity.Tools_4.1.2_x64-setup.exe`<br>`Antigravity.Tools_4.1.2_x64.dmg`<br>`Antigravity.Tools_4.1.2_x64_en-US.msi`<br>`updater.json`<br> | [Source](https://github.com/lbjlaq/Antigravity-Manager/releases/tag/v4.1.2) |
