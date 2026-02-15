@@ -1,5 +1,116 @@
 [
     {
+        "tag_name": "v4.1.19",
+        "published_at": "2026-02-15T03:20:13Z",
+        "html_url": "https://github.com/lbjlaq/Antigravity-Manager/releases/tag/v4.1.19",
+        "assets": [
+            {
+                "name": "Antigravity.Tools-4.1.19-1.aarch64.rpm",
+                "browser_download_url": "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v4.1.19/Antigravity.Tools-4.1.19-1.aarch64.rpm"
+            },
+            {
+                "name": "Antigravity.Tools-4.1.19-1.aarch64.rpm.sig",
+                "browser_download_url": "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v4.1.19/Antigravity.Tools-4.1.19-1.aarch64.rpm.sig"
+            },
+            {
+                "name": "Antigravity.Tools-4.1.19-1.x86_64.rpm",
+                "browser_download_url": "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v4.1.19/Antigravity.Tools-4.1.19-1.x86_64.rpm"
+            },
+            {
+                "name": "Antigravity.Tools-4.1.19-1.x86_64.rpm.sig",
+                "browser_download_url": "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v4.1.19/Antigravity.Tools-4.1.19-1.x86_64.rpm.sig"
+            },
+            {
+                "name": "Antigravity.Tools_4.1.19_aarch64.AppImage",
+                "browser_download_url": "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v4.1.19/Antigravity.Tools_4.1.19_aarch64.AppImage"
+            },
+            {
+                "name": "Antigravity.Tools_4.1.19_aarch64.AppImage.sig",
+                "browser_download_url": "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v4.1.19/Antigravity.Tools_4.1.19_aarch64.AppImage.sig"
+            },
+            {
+                "name": "Antigravity.Tools_4.1.19_aarch64.dmg",
+                "browser_download_url": "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v4.1.19/Antigravity.Tools_4.1.19_aarch64.dmg"
+            },
+            {
+                "name": "Antigravity.Tools_4.1.19_amd64.AppImage",
+                "browser_download_url": "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v4.1.19/Antigravity.Tools_4.1.19_amd64.AppImage"
+            },
+            {
+                "name": "Antigravity.Tools_4.1.19_amd64.AppImage.sig",
+                "browser_download_url": "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v4.1.19/Antigravity.Tools_4.1.19_amd64.AppImage.sig"
+            },
+            {
+                "name": "Antigravity.Tools_4.1.19_amd64.deb",
+                "browser_download_url": "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v4.1.19/Antigravity.Tools_4.1.19_amd64.deb"
+            },
+            {
+                "name": "Antigravity.Tools_4.1.19_amd64.deb.sig",
+                "browser_download_url": "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v4.1.19/Antigravity.Tools_4.1.19_amd64.deb.sig"
+            },
+            {
+                "name": "Antigravity.Tools_4.1.19_arm64.deb",
+                "browser_download_url": "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v4.1.19/Antigravity.Tools_4.1.19_arm64.deb"
+            },
+            {
+                "name": "Antigravity.Tools_4.1.19_arm64.deb.sig",
+                "browser_download_url": "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v4.1.19/Antigravity.Tools_4.1.19_arm64.deb.sig"
+            },
+            {
+                "name": "Antigravity.Tools_4.1.19_universal.dmg",
+                "browser_download_url": "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v4.1.19/Antigravity.Tools_4.1.19_universal.dmg"
+            },
+            {
+                "name": "Antigravity.Tools_4.1.19_x64-setup.exe",
+                "browser_download_url": "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v4.1.19/Antigravity.Tools_4.1.19_x64-setup.exe"
+            },
+            {
+                "name": "Antigravity.Tools_4.1.19_x64-setup.exe.sig",
+                "browser_download_url": "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v4.1.19/Antigravity.Tools_4.1.19_x64-setup.exe.sig"
+            },
+            {
+                "name": "Antigravity.Tools_4.1.19_x64.dmg",
+                "browser_download_url": "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v4.1.19/Antigravity.Tools_4.1.19_x64.dmg"
+            },
+            {
+                "name": "Antigravity.Tools_4.1.19_x64_en-US.msi",
+                "browser_download_url": "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v4.1.19/Antigravity.Tools_4.1.19_x64_en-US.msi"
+            },
+            {
+                "name": "Antigravity.Tools_4.1.19_x64_en-US.msi.sig",
+                "browser_download_url": "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v4.1.19/Antigravity.Tools_4.1.19_x64_en-US.msi.sig"
+            },
+            {
+                "name": "Antigravity.Tools_aarch64.app.tar.gz",
+                "browser_download_url": "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v4.1.19/Antigravity.Tools_aarch64.app.tar.gz"
+            },
+            {
+                "name": "Antigravity.Tools_aarch64.app.tar.gz.sig",
+                "browser_download_url": "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v4.1.19/Antigravity.Tools_aarch64.app.tar.gz.sig"
+            },
+            {
+                "name": "Antigravity.Tools_universal.app.tar.gz",
+                "browser_download_url": "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v4.1.19/Antigravity.Tools_universal.app.tar.gz"
+            },
+            {
+                "name": "Antigravity.Tools_universal.app.tar.gz.sig",
+                "browser_download_url": "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v4.1.19/Antigravity.Tools_universal.app.tar.gz.sig"
+            },
+            {
+                "name": "Antigravity.Tools_x64.app.tar.gz",
+                "browser_download_url": "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v4.1.19/Antigravity.Tools_x64.app.tar.gz"
+            },
+            {
+                "name": "Antigravity.Tools_x64.app.tar.gz.sig",
+                "browser_download_url": "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v4.1.19/Antigravity.Tools_x64.app.tar.gz.sig"
+            },
+            {
+                "name": "updater.json",
+                "browser_download_url": "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v4.1.19/updater.json"
+            }
+        ]
+    },
+    {
         "tag_name": "v4.1.18",
         "published_at": "2026-02-14T16:48:46Z",
         "html_url": "https://github.com/lbjlaq/Antigravity-Manager/releases/tag/v4.1.18",
